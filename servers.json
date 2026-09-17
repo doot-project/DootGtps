@@ -2,18 +2,18 @@
   "default": "server1",
   "servers": [
     {
-      "id": "server1",
-      "name": "DootGtps Server 1",
-      "host": "127.0.0.1",
+      "id": "DootPS",
+      "name": "DootPS",
+      "host": "172.232.228.96",
       "port": 17091,
-      "description": "DootGtps Main Server"
+      "description": "DootTopia"
     },
     {
-      "id": "server2",
-      "name": "DootGtps Server 2",
-      "host": "127.0.0.1",
-      "port": 17092,
-      "description": "DootGtps Sub / Event Server"
+      "id": "GtHl",
+      "name": "GtHl",
+      "host": "172.232.228.96",
+      "port": 55000,
+      "description": "GtHl"
     }
   ]
 }
