@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en" style="background-color: rgba(0,0,0,0.0); width:100%; height: 100%;">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DootGtps Login</title>
+  <link rel="icon" type="image/png"
+    href="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/assets/images/growtopia.ico"
+    sizes="16x16" />
+  <link rel="shortcut icon"
+    href="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/assets/images/growtopia.ico"
+    type="image/x-icon">
+  <link rel="icon"
+    href="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/assets/images/growtopia.ico"
+    type="image/x-icon">
+  <!-- include bootstrap and custom  css -->
+  <link media="all" rel="stylesheet"
+    href="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/assets/css/faq-main.css">
+  <!-- include custom  css -->
+  <link media="all" rel="stylesheet"
+    href="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/assets/css/shop-custom.css">
+  <link media="all" rel="stylesheet"
+    href="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/assets/css/ingame-custom.css">
+  <style>
+    .modal-backdrop {
+      background-color: rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .modal-backdrop+div {
+      overflow: auto;
+    }
+
+    .modal-body,
+    .content {
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body style="background-color: rgba(0,0,0,0.0);">
+  <button type="button" class="btn btn-primary hidden" data-toggle="modal" id="modalButton" data-target="#modalShow"
+    data-backdrop="static" data-keyboard="false"></button>
+  <div class="content">
+    <section class="common-box ">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 col-sm-12">
+            <div class="row">
+              <div class="modal fade product-list-popup" id="modalShow" tabindex="-1" role="dialog" aria-hidden="false">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-body">
+                      <div class="content">
+                        <section class="common-box ">
+                          <div class="container">
+                            <div class="section-title center-align">
+                              <h2>Log in with your Grow ID</h2>
+                            </div>
+                            <div class="row div-content-center">
+                              <div class="col-md-12 col-sm-12">
+                                <form method="POST" id="loginForm" action="/player/growid/login/validate"
+                                  accept-charset="UTF-8" class="" role="form" autocomplete="off">
+                                  <input name="_token" type="hidden" value="{{ data }}">
+                                  <div class="form-group server-group">
+                                    <div class="server-header">
+                                      <label for="login-server" class="server-title">
+                                        <span>🌐 Server (Port):</span>
+                                      </label>
+                                      <span class="server-badge" id="login-server-badge">Port: 17091</span>
+                                    </div>
+                                    <select id="login-server" class="form-control grow-text server-select" name="server" required="required">
+                                      {{ serverOptions }}
+                                    </select>
+                                    <input type="hidden" id="login-server-name" name="serverName" value="Server 1">
+                                    <input type="hidden" id="login-server-port" name="serverPort" value="17091">
+                                  </div>
+                                  <div class="form-group">
+                                    <input id="login-name" class="form-control grow-text" required="required"
+                                      placeholder="Your Growtopia Name *" name="growId" value="" type="text"
+                                      pattern="[A-Za-z0-9]+" title="Only letters and numbers are allowed">
+                                  </div>
+                                  <div class="form-group">
+                                    <input id="password" class="form-control grow-text" required="required"
+                                      placeholder="Your Growtopia Password *" name="password" type="password" value=""
+                                      pattern="[A-Za-z0-9@._!\-]+"
+                                      title="Only letters, numbers, and @ . _ ! - are allowed">
+                                  </div>
+                                  <div class="form-group text-center forgot-password">
+                                    <a href="https://www.growtopiagame.com/account" target="_blank">Forgot Password</a>
+                                    <br>
+                                    <a href="#" id="toggleRegister" style="margin-top: 5px; display: inline-block;">Register Account</a>
+                                  </div>
+                                  <div class="form-group text-center">
+                                    <input class="btn btn-lg btn-primary grow-button" type="submit" value="Log in">
+                                  </div>
+                                </form>
+                                <form method="POST" id="registerForm" action="/player/growid/login/validate" accept-charset="UTF-8" class="hidden" role="form" autocomplete="off">
+                                  <input name="_token" type="hidden" value="{{ data }}">
+                                  <div class="form-group server-group">
+                                    <div class="server-header">
+                                      <label for="register-server" class="server-title">
+                                        <span>🌐 Server (Port):</span>
+                                      </label>
+                                      <span class="server-badge" id="register-server-badge">Port: 17091</span>
+                                    </div>
+                                    <select id="register-server" class="form-control grow-text server-select" name="server" required="required">
+                                      {{ serverOptions }}
+                                    </select>
+                                    <input type="hidden" id="register-server-name" name="serverName" value="Server 1">
+                                    <input type="hidden" id="register-server-port" name="serverPort" value="17091">
+                                  </div>
+                                  <div class="form-group">
+                                    <input id="register-name" class="form-control grow-text" required="required"
+                                      placeholder="Your Growtopia Name *" name="growId" value="" type="text"
+                                      pattern="[A-Za-z0-9]+" title="Only letters and numbers are allowed">
+                                  </div>
+                                  <div class="form-group">
+                                    <input id="register-email" class="form-control grow-text" required="required"
+                                      placeholder="Your Email *" name="email" value="" type="email">
+                                  </div>
+                                  <div class="form-group">
+                                    <input id="register-password" class="form-control grow-text" required="required"
+                                      placeholder="Your Growtopia Password *" name="password" type="password" value=""
+                                      pattern="[A-Za-z0-9@._!\-]+"
+                                      title="Only letters, numbers, and @ . _ ! - are allowed">
+                                  </div>
+                                  <div class="form-group">
+                                    <input id="register-confirm-password" class="form-control grow-text" required="required"
+                                      placeholder="Confirm Password *" name="password_confirmation" type="password" value=""
+                                      pattern="[A-Za-z0-9@._!\-]+"
+                                      title="Only letters, numbers, and @ . _ ! - are allowed">
+                                  </div>
+                                  <div class="form-group text-center">
+                                    <a href="#" id="toggleLogin" style="margin-bottom: 10px; display: inline-block;">Back to Login</a>
+                                  </div>
+                                  <div class="form-group text-center">
+                                    <input class="btn btn-lg btn-primary grow-button" type="submit" value="Register">
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </section>
+                      </div>
+                      <style>
+                        .hidden {
+                          display: none !important;
+                        }
+                        .server-group {
+                          margin-bottom: 15px;
+                        }
+                        .server-header {
+                          display: flex;
+                          justify-content: space-between;
+                          align-items: center;
+                          margin-bottom: 6px;
+                        }
+                        .server-title {
+                          font-size: 13px;
+                          font-weight: 700;
+                          color: #2c3e50;
+                          margin: 0;
+                        }
+                        .server-badge {
+                          font-size: 11px;
+                          font-weight: bold;
+                          background: #28a745;
+                          color: #ffffff;
+                          padding: 2px 8px;
+                          border-radius: 12px;
+                          letter-spacing: 0.5px;
+                          box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+                        }
+                        .server-select {
+                          cursor: pointer;
+                          background-color: #ffffff !important;
+                          color: #1a1a1a !important;
+                          font-weight: 600;
+                          border: 2px solid #5cb85c !important;
+                          border-radius: 4px;
+                          height: 40px !important;
+                        }
+                        .server-select:focus {
+                          border-color: #4cae4c !important;
+                          outline: none;
+                          box-shadow: 0 0 8px rgba(92, 184, 92, 0.5);
+                        }
+                      </style>
+                      <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                          const loginForm = document.getElementById('loginForm');
+                          const registerForm = document.getElementById('registerForm');
+                          const toggleRegister = document.getElementById('toggleRegister');
+                          const toggleLogin = document.getElementById('toggleLogin');
+                          const sectionTitle = document.querySelector('.section-title h2');
+
+                          // @note server selector handlers
+                          const loginServerSelect = document.getElementById('login-server');
+                          const registerServerSelect = document.getElementById('register-server');
+                          const loginServerBadge = document.getElementById('login-server-badge');
+                          const registerServerBadge = document.getElementById('register-server-badge');
+                          const loginServerName = document.getElementById('login-server-name');
+                          const loginServerPort = document.getElementById('login-server-port');
+                          const registerServerName = document.getElementById('register-server-name');
+                          const registerServerPort = document.getElementById('register-server-port');
+
+                          function updateServerDetails(selectEl, isLogin) {
+                            if (!selectEl) return;
+                            const selectedOpt = selectEl.options[selectEl.selectedIndex];
+                            if (!selectedOpt) return;
+                            const name = selectedOpt.getAttribute('data-name') || selectedOpt.text;
+                            const port = selectedOpt.getAttribute('data-port') || '';
+
+                            const badge = isLogin ? loginServerBadge : registerServerBadge;
+                            const nameInput = isLogin ? loginServerName : registerServerName;
+                            const portInput = isLogin ? loginServerPort : registerServerPort;
+
+                            if (badge && port) {
+                              badge.textContent = 'Port: ' + port;
+                            }
+                            if (nameInput) nameInput.value = name;
+                            if (portInput) portInput.value = port;
+                          }
+
+                          if (loginServerSelect) {
+                            loginServerSelect.addEventListener('change', function () {
+                              updateServerDetails(this, true);
+                              if (registerServerSelect) {
+                                registerServerSelect.value = this.value;
+                                updateServerDetails(registerServerSelect, false);
+                              }
+                            });
+                          }
+
+                          if (registerServerSelect) {
+                            registerServerSelect.addEventListener('change', function () {
+                              updateServerDetails(this, false);
+                              if (loginServerSelect) {
+                                loginServerSelect.value = this.value;
+                                updateServerDetails(loginServerSelect, true);
+                              }
+                            });
+                          }
+
+                          // @note check URL params for ?server=2 or ?server=server2
+                          const urlParams = new URLSearchParams(window.location.search);
+                          const serverParam = urlParams.get('server');
+                          if (serverParam && loginServerSelect) {
+                            for (let i = 0; i < loginServerSelect.options.length; i++) {
+                              const opt = loginServerSelect.options[i];
+                              const optPort = opt.getAttribute('data-port');
+                              if (
+                                opt.value.toLowerCase() === serverParam.toLowerCase() ||
+                                optPort === serverParam ||
+                                (serverParam === '1' && (opt.value === 'server1' || i === 0)) ||
+                                (serverParam === '2' && (opt.value === 'server2' || i === 1))
+                              ) {
+                                loginServerSelect.selectedIndex = i;
+                                if (registerServerSelect) registerServerSelect.selectedIndex = i;
+                                break;
+                              }
+                            }
+                          }
+
+                          // Initial server details update
+                          updateServerDetails(loginServerSelect, true);
+                          if (registerServerSelect) updateServerDetails(registerServerSelect, false);
+
+                          // @note toggle to register form
+                          toggleRegister.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            loginForm.classList.add('hidden');
+                            registerForm.classList.remove('hidden');
+                            sectionTitle.textContent = 'Register your Grow ID';
+                            if (loginServerSelect && registerServerSelect) {
+                              registerServerSelect.value = loginServerSelect.value;
+                              updateServerDetails(registerServerSelect, false);
+                            }
+                          });
+
+                          // @note toggle to login form
+                          toggleLogin.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            registerForm.classList.add('hidden');
+                            loginForm.classList.remove('hidden');
+                            sectionTitle.textContent = 'Log in with your Grow ID';
+                            if (loginServerSelect && registerServerSelect) {
+                              loginServerSelect.value = registerServerSelect.value;
+                              updateServerDetails(loginServerSelect, true);
+                            }
+                          });
+
+                          // @note login form handlers
+                          const loginSubmitButton = loginForm.querySelector('input[type="submit"]');
+                          const loginNameInput = document.getElementById('login-name');
+                          const passwordInput = document.getElementById('password');
+
+                          loginNameInput.addEventListener('input', function (e) {
+                            this.value = this.value.replace(/[^A-Za-z0-9]/g, '');
+                          });
+
+                          passwordInput.addEventListener('input', function (e) {
+                            this.value = this.value.replace(/[^A-Za-z0-9@._!\-]/g, '');
+                          });
+
+                          loginForm.addEventListener('submit', function (e) {
+                            if (loginSubmitButton.disabled) {
+                              e.preventDefault();
+                              return false;
+                            }
+                            updateServerDetails(loginServerSelect, true);
+                            loginSubmitButton.disabled = true;
+                            loginSubmitButton.value = 'Logging in...';
+                          });
+
+                          // @note register form handlers
+                          const registerSubmitButton = registerForm.querySelector('input[type="submit"]');
+                          const registerNameInput = document.getElementById('register-name');
+                          const registerEmailInput = document.getElementById('register-email');
+                          const registerPasswordInput = document.getElementById('register-password');
+                          const registerConfirmPasswordInput = document.getElementById('register-confirm-password');
+
+                          registerNameInput.addEventListener('input', function (e) {
+                            this.value = this.value.replace(/[^A-Za-z0-9]/g, '');
+                          });
+
+                          registerPasswordInput.addEventListener('input', function (e) {
+                            this.value = this.value.replace(/[^A-Za-z0-9@._!\-]/g, '');
+                          });
+
+                          registerConfirmPasswordInput.addEventListener('input', function (e) {
+                            this.value = this.value.replace(/[^A-Za-z0-9@._!\-]/g, '');
+                          });
+
+                          registerForm.addEventListener('submit', function (e) {
+                            if (registerSubmitButton.disabled) {
+                              e.preventDefault();
+                              return false;
+                            }
+
+                            if (registerPasswordInput.value !== registerConfirmPasswordInput.value) {
+                              e.preventDefault();
+                              alert('Passwords do not match!');
+                              return false;
+                            }
+
+                            updateServerDetails(registerServerSelect, false);
+                            registerSubmitButton.disabled = true;
+                            registerSubmitButton.value = 'Registering...';
+                          });
+                        });
+                      </script>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+<!-- JQUERY LIBRARY -->
+<script
+  src="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/assets/js/jquery-3.7.1.min.js"></script>
+<!-- boostrap javascript -->
+<script
+  src="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/assets/js/bootstrap3.min.js"></script>
+<script>
+  let clicked = false;
+  $("a").click(function () { if (clicked === false) { clicked = true; return true; } $(this).attr("onclick", "return false;"); });
+  $('document').ready(function () {
+    document.onkeydown = (e) => {
+      if (e.key == 123) {
+        e.preventDefault();
+      }
+      if (e.key == 'F12') {
+        e.preventDefault();
+      }
+      if (e.ctrlKey && e.shiftKey && e.key == 'I') {
+        e.preventDefault();
+      }
+      if (e.ctrlKey && e.key == 'I') {
+        e.preventDefault();
+      }
+      if (e.ctrlKey && e.shiftKey && e.key == 'C') {
+        e.preventDefault();
+      }
+      if (e.ctrlKey && e.shiftKey && e.key == 'J') {
+        e.preventDefault();
+      }
+      if (e.ctrlKey && e.key == 'U') {
+        e.preventDefault();
+      }
+    };
+    $('#modalButton').trigger('click');
+    $('.close').on('click', function () {
+      window.location = "https://login.growtopiagame.com/player/validate/close"
+    });
+    // $('form').submit($('form .grow-button').attr('disabled', 'true'));
+
+    var observer = new MutationObserver(function (mutations) {
+      mutations.forEach(function (mutation) {
+        for (var i = 0; i < mutation.addedNodes.length; i++) {
+          if (mutation.addedNodes[i].tagName == 'DIV') {
+            var thediv = mutation.addedNodes[i];
+            var sw = window.screen.width;
+            if (sw < 667) {
+              $(thediv).css({
+                'transform': 'scale(0.75)',
+                'transform-origin': '0 0',
+                '-webkit-transform': 'scale(0.75)',
+                '-webkit-transform-origin': '0 0',
+                'overflow': 'auto'
+              });
+            }
+          }
+        }
+      });
+    });
+    observer.observe(document.body, { attributes: false, childList: true, characterData: false });
+  });
+</script>
+
+</html>
