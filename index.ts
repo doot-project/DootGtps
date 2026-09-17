@@ -74,11 +74,27 @@ export function findServer(idOrNameOrPort?: string): ServerConfig {
   let match = config.servers.find((s) => s.id.toLowerCase() === clean);
   if (match) return match;
 
+  // match exact name
+  match = config.servers.find((s) => s.name.toLowerCase() === clean);
+  if (match) return match;
+
   // match shorthand '1' or '2'
-  if (clean === '1' || clean === 'server 1' || clean === 'server1') {
+  if (
+    clean === '1' ||
+    clean === 'server 1' ||
+    clean === 'server1' ||
+    clean.endsWith(' 1') ||
+    clean.endsWith('1')
+  ) {
     return config.servers[0];
   }
-  if (clean === '2' || clean === 'server 2' || clean === 'server2') {
+  if (
+    clean === '2' ||
+    clean === 'server 2' ||
+    clean === 'server2' ||
+    clean.endsWith(' 2') ||
+    clean.endsWith('2')
+  ) {
     return config.servers[1] || config.servers[0];
   }
 
@@ -195,19 +211,14 @@ app.all('/player/login/dashboard', async (req: Request, res: Response) => {
   const selectedServerQuery = (req.query.server as string) || '';
   const selectedServer = findServer(selectedServerQuery);
 
-  const serverOptionsHtml = serversConfig.servers
-    .map(
-      (s) =>
-        `<option value="${s.id}" data-name="${s.name}" data-port="${s.port}" ${
-          s.id === selectedServer.id ? 'selected' : ''
-        }>${s.name} (Port: ${s.port})</option>`,
-    )
+  const serverSuggestionsHtml = serversConfig.servers
+    .map((s) => `<option value="${s.name}"></option>`)
     .join('\n');
 
   let htmlContent = templateContent
     .replace('{{ data }}', encodedClientData)
-    .replace(/\{\{\s*serverOptions\s*\}\}/g, serverOptionsHtml)
-    .replace(/\{\{\s*serversJson\s*\}\}/g, JSON.stringify(serversConfig.servers));
+    .replace(/\{\{\s*serverSuggestions\s*\}\}/g, serverSuggestionsHtml)
+    .replace(/\{\{\s*defaultServerName\s*\}\}/g, selectedServer.name);
 
   res.setHeader('Content-Type', 'text/html');
   res.send(htmlContent);
@@ -227,12 +238,12 @@ app.all(
       const growId = formData.growId;
       const password = formData.password;
       const email = formData.email;
-      const serverParam = formData.server || formData.serverId || formData.serverName;
+      const serverParam = formData.serverName || formData.server || formData.serverId;
 
       const serverConfig = findServer(serverParam);
       const serverId = serverConfig.id;
       const serverName = formData.serverName || serverConfig.name;
-      const serverPort = formData.serverPort ? parseInt(formData.serverPort, 10) : serverConfig.port;
+      const serverPort = serverConfig.port;
 
       console.log(`[LOGIN] User: ${growId} -> Target: ${serverName} (${serverConfig.host}:${serverPort})`);
 
