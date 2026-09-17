@@ -1,0 +1,19 @@
+{
+  "default": "server1",
+  "servers": [
+    {
+      "id": "server1",
+      "name": "DootGtps Server 1",
+      "host": "127.0.0.1",
+      "port": 17091,
+      "description": "DootGtps Main Server"
+    },
+    {
+      "id": "server2",
+      "name": "DootGtps Server 2",
+      "host": "127.0.0.1",
+      "port": 17092,
+      "description": "DootGtps Sub / Event Server"
+    }
+  ]
+}
